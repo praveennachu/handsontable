@@ -508,9 +508,10 @@ export default class BorderRenderer {
       y2 -= ceiledHalfWidth;
     }
 
-    if (x1 < 0 && x2 < 0 || y1 < 0 && y2 < 0) {
-      // nothing to draw, everything is at a negative index
-      return;
+    if (this.overlayName === 'bottom' || this.overlayName === 'bottom_left_corner') {
+      if (y2 === -1) {
+        y2 = 0; // render selection from row above at the correct posotion regarding the bottom frozen line
+      }
     }
 
     if (hasTopEdge && this.hasLineAtEdge(settings, 'top')) {
